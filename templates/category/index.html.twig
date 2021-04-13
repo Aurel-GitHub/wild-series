@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wild Series - All categories{% endblock %}
+
+{% block body %}
+ <h1>Toutes les catégories : </h1>
+    {% for categorie in categories %}
+        <div>
+            <h2>{{ categorie.name }}</h2>
+        </div>
+    {% else %}
+        Aucune série trouvée.
+    {% endfor %}
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
+{% endblock %}
+
