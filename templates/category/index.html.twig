@@ -6,7 +6,7 @@
  <h1>Toutes les catégories : </h1>
     {% for categorie in categories %}
         <div>
-            <h2>{{ categorie.name }}</h2><br>
+            <h2><a href="{{ path("category_show", { name: categorie.name }) }}">{{ categorie.name }}</a></h2><br>
         </div>
     {% else %}
         Aucune série trouvée.

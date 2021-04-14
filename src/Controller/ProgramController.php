@@ -32,7 +32,6 @@ class ProgramController extends AbstractController
     public function show(int $id):Response
     {
         $program = $this->getDoctrine()->getRepository(Program::class)->findOneBy(['id' => $id]);
-        //  dd($program);
 
         if(!$program) {
             throw $this->createNotFoundException('No program with id : '.$id.' found in program\'s table.');
