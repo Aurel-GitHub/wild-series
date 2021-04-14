@@ -28,18 +28,23 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * TODO redirection sur les films ayant cette catégories
+     * 
      * @Route("/category/{name}", name="category_show")
      */
-    public function show($name): Response
-    {
-        $categoryName = $this->getDoctrine()->getRepository(Category::class)->findOneByName($name);
+    public function show(string $name): Response
+    {        
+        if(!$name) {
+            throw $this->createNotFoundException('No category found ! ');
+        }else{
+            $categoryName = $this->getDoctrine()->getRepository(Category::class)->findOneByName($name);
 
-        $categories = $this->getDoctrine()->getRepository(Program::class)->findBy(['category' => 1], ['id' => 'DESC'], 3);
+            $categories = $this->getDoctrine()->getRepository(Program::class)->findBy(['category' => 1], ['id' => 'DESC'], 999);
+    
+           return $this->render('category/show.html.twig', [
+               'categories' => $categories,
+               'category_name' => $categoryName
+           ]);
+        }
 
-       return $this->render('category/show.html.twig', [
-           'categories' => $categories,
-           'category_name' => $categoryName
-       ]);
     }
 }

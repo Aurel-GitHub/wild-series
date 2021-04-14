@@ -1,16 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Wild Series - All categories{% endblock %}
-
-{% block body %}
- <h1>Toutes les catégories : </h1>
-    {% for categorie in categories %}
-        <div>
-            <h2><a href="{{ path("category_show", { name: categorie.name }) }}">{{ categorie.name }}</a></h2><br>
-        </div>
-    {% else %}
-        Aucune série trouvée.
-    {% endfor %}
-    <a href="{{ path('app_index') }}">Retour à l'accueil</a>
+{% block title %}Wild Series - All categories
 {% endblock %}
 
+{% block body %}
+	<div class="container" style="padding: 3%">
+		<h1 style="padding-bottom:3%">Toutes les catégories :
+		</h1>
+		{% for categorie in categories %}
+			<div>
+				<div class="col-md-3 ">
+					<div class="card" style="text-align:center;padding-top: 1%;padding-bottom: 1%; margin: 1%; border:none">
+						<h2>
+							<a style="padding-top: 1%" href="{{ path("category_show", { name: categorie.name }) }}">{{ categorie.name }}</a>
+						</h2>
+					</div>
+                    <br>
+				</div>
+			</div>
+		{% else %}
+			Aucune série trouvée.
+		{% endfor %}
+		<a href="{{ path('app_index') }}">Retour à l'accueil</a>
+	</a>
+{% endblock %}
