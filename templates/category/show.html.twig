@@ -4,20 +4,26 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Film de Catégorie :
-		{{ category_name.name }}</h1>
-	{% for category in categories %}
-		<br><div>
-			<h2>{{ category.title }}
-				- Série n°
-				{{ category.id }}</h2>
-			<p>{{ category.summary }}</p>
-			<a href="{{ path("program_show", { id: category.id }) }}">Voir la fiche</a>
-		</div>
-	{% else %}
-		Aucune série trouvée.
-	{% endfor %}
-	<a href="{{ path('app_index') }}">
-		Retour à l'accueil
-	</a>
+	<div class="container" style="padding: 3%">
+		<h1 style="padding-bottom:3% ">Série de catégorie
+			{{ category_name.name }}</h1>
+		{% for category in categories %}
+			<div class="card" style="padding: 1%">
+				<h2 style="padding: 2%">{{ loop.index }}
+					/
+					{{ category.title }}
+					- Série n° :
+					{{ category.id }}</h2>
+				<p style="padding: 2%">{{ category.summary }}</p>
+				<div class="link" style="padding: 2%">
+					<a href="{{ path("program_show", { id: category.id }) }}">Voir la fiche</a>
+				</div>
+			</div><br>
+		{% else %}
+			Aucune série trouvée.
+		{% endfor %}
+		<a href="{{ path('app_index') }}">
+			Retour à l'accueil
+		</a>
+	</div>
 {% endblock %}

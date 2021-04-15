@@ -22,10 +22,6 @@
 				<p>{{ season.description }}</p>
 			</div>
 			{% for item in season.episodes %}
-				{# {{ dump(item.seasonId.id) }}
-				{{ dump(item.seasonId.programId.id) }}
-				{{ dump(item.id) }} #}
-
 				<div class="episode" style="padding-top: 2%"><strong>
 				<a href="{{ path("program_episode_show",
 				 { programId: item.seasonId.programId.id ,seasonId: item.seasonId.id ,episodeId: item.id }) }}">
