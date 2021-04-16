@@ -21,6 +21,7 @@
 		{% else %}
 			Aucune série trouvée.
 		{% endfor %}
-		<a href="{{ path('app_index') }}">Retour à l'accueil</a>
-	</a>
+		<div class="link-home"><a href="{{ path('app_index') }}">Retour à l'accueil</a><a href="{{ path('new_category') }}" style="padding-left: 2%">Ajouter une catégorie</a></div>
+		<div class="link-add" ></div>
+
 {% endblock %}
