@@ -33,6 +33,11 @@ class Category
     {
         $this->programs = new ArrayCollection();
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
     
     /**
      * @return Collection|Program[]

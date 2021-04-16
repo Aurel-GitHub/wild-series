@@ -8,6 +8,7 @@ use App\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class CategoryController extends AbstractController
 {
@@ -49,13 +50,27 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new_category")
+     * @Route("/add-category", name="new_category")
      */
-    public function new(): Response
+    public function new(Request $request): Response
     {
         $category = new Category();
 
         $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $this->addFlash('notice' ,'Your category has been saved !');
+
+            $em  = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            return $this->redirectToRoute('categories');
+        }
+
 
         return $this->render('category/new.html.twig', [
             "form" => $form->createView()

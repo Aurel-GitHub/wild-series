@@ -5,6 +5,8 @@
 {% block body %}
 <div class="container" style="padding: 3%">
  <h1 style="padding-bottom:3% " >Toutes les séries de la table program : </h1>
+    <a href="{{ path('app_index') }}">Retour à l'accueil</a><a href="{{ path('new_program') }}" style="padding-left: 2%">Ajouter une série</a>
+    <div class="espace" style="padding-top: 1%"></div>
     {% for program in programs %}
         <div class="card" style="padding: 1%">
             <h2 style="padding: 2%">{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</h2>
@@ -14,8 +16,5 @@
     {% else %}
         Aucune série trouvée.
     {% endfor %}
-    <a href="{{ path('app_index') }}">
-        Retour à l'accueil
-    </a>
 </div>
 {% endblock %}

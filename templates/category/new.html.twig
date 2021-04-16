@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Create a new category
+{% block title %}Créer une nouvelle catégorie
 {% endblock %}
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
@@ -12,7 +12,7 @@
 				<div class="col-sm-6 col-sm offset-1">
 					<div class="card" >
 						<div class="card-body" style="margin-left: 0%">
-							<h4 class="card-title" style="text-align:center">Create a new category</h4>
+							<h4 class="card-title" style="text-align:center">Créer une nouvelle catégorie</h4>
 							{{ form_start(form) }}
 							<div class="row align-items-end" style="padding-left: 30%">
 								<div class="col">
@@ -21,7 +21,6 @@
                                 <div class="col">
 									{{ form_row(form.submit) }}
 								</div>
-								{# <button type="submit" class="btn btn-secondary">Envoyer</button> #}
 							</div>
 							{{ form_end(form) }}
 						</div>
