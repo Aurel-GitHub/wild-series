@@ -47,6 +47,7 @@ class ProgramType extends AbstractType
                 'choice_label' => 'selector',
                 'multiple' => true,
                 'expanded' => true,
+                'by_reference' => false
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Ajouter', 
