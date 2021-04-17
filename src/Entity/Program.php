@@ -8,8 +8,13 @@ use App\Repository\ProgramRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=ProgramRepository::class)
+ * @UniqueEntity(fields = {"title"}, message = "Le titre saisie éxiste déjà, veuillez en saisir un nouveau")
+ * 
  */
 class Program
 {
@@ -22,11 +27,15 @@ class Program
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(max=255, maxMessage="le titre ne peut dépasser 255 caractères")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
+     * @Assert\Regex(pattern="/(plus belle la vie)/", match=false, message="Veuillez saisir une série meilleure que cette merde ...")
      */
     private $summary;
 
