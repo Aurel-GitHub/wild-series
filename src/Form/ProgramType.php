@@ -36,14 +36,12 @@ class ProgramType extends AbstractType
                     'placeholder' => 'paste your link of poster here'
                 ]
             ])
-            ->add('category', null, ['choice_label' => 'name'])
-            // ->add('category', EntityType::class,  [
-            //     'label' => false,
-            //     'required' => false,
-            //     'class' => Category::class,
-            //     'multiple' => true,
-            //     'expanded' => true  // multiple choice in checkbox !!! 
-            // ])
+            // ->add('category', null, ['choice_label' => 'name'])
+            ->add('category', EntityType::class,  [
+                'label' => false,
+                'class' => Category::class,
+                'choice_label' => 'name'
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Ajouter', 
                 'attr' => [

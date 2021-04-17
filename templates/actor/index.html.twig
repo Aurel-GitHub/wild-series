@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wild Series - Acteurs
+{% endblock %}
+
+{% block body %}
+	<div class="container" style="padding: 3%">
+		<h1 style="padding-bottom:3%">Tous les acteurs :</h1>
+		<div class="link-home"><a href="{{ path('app_index') }}">Retour à l'accueil</a></div>
+		<div class="espace" style="padding-top: 1%"></div>
+
+        <ul style="list-style:none;margin: 0">
+		{% for actor in actors %}
+			<div>
+				<div class="col">
+					<div class="card" style="text-align:center;padding-top: 1%;padding-bottom: 1%; margin: 1%; border:none">
+						<li><h2><a href="{{ path('actor_show', {id: actor.id}) }}">{{ actor.name }}</a></h2>
+					</div>
+                    <br>
+				</div>
+			</div>
+		{% else %}
+			Aucune série trouvée.
+		{% endfor %}
+        </ul>
+{% endblock %}
