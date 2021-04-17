@@ -118,10 +118,10 @@ class ProgramController extends AbstractController
             $this->addFlash('notice', 'Your program has been saved !');
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($request);
+            $em->persist($program);
             $em->flush();
 
-            return $this->redirectToRoute('program_season_show');
+            return $this->redirectToRoute('program');
         }
 
         return $this->render('program/new.html.twig', [

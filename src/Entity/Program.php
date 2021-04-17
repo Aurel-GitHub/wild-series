@@ -42,14 +42,14 @@ class Program
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Season::class, mappedBy="program_id")
+     * @ORM\OneToMany(targetEntity=Season::class, mappedBy="program_id", orphanRemoval=true)
      */
     private $seasons;
 
 
     public function __construct()
     {
-        $this->number = new ArrayCollection();
+        // $this->category = new ArrayCollection();
         $this->seasons = new ArrayCollection();
     }
 
@@ -94,9 +94,7 @@ class Program
         return $this;
     }
 
-        /**
-     * @return Collection|Category[]
-     */
+
     public function getCategory(): ?Category
     {
         return $this->category;
