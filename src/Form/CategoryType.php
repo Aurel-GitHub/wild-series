@@ -18,11 +18,11 @@ class CategoryType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => ' ',
                 'attr' => [
-                    'placeholder' => 'name'
+                    'placeholder' => 'nom'
                     ]
                 ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Add', 
+                'label' => 'Ajouter', 
                 'attr' => [
                     'class' => 'btn-info btn-sm' 
                 ]

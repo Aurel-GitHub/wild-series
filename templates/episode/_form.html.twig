@@ -1,0 +1,34 @@
+<section id="cover">
+		<div id="cover-caption">
+			<div id="container" style="padding-top: 10%; padding-left: 22%">
+				<div class="col-sm-6 col-sm offset-1">
+					<div class="card">
+						<div class="card-body" style="margin-left: 0%">
+							<h4 class="card-title" style="text-align:center">Ajouter un épisode</h4>
+							{{ form_start(form) }}
+							<div  class="row align-items-end" style="padding-left: 0%">
+								<div class="col-md-6">
+									{{ form_row(form.title) }}
+								</div>
+								<div class="col-md-6">
+									{{ form_row(form.number) }}
+								</div>
+                                    <div class="col-md-6" style="padding-top: 3%">
+                                        {{ form_row(form.synopsis) }}
+                                    </div>
+								<div class="col-md-6">
+									{{ form_row(form.season_id) }}
+								</div>
+								<div class="col-md-6" style="padding-top: 3%">
+									{{ form_row(form.submit) }}
+								</div>
+							</div>
+							{{ form_end(form) }}
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
+</section>

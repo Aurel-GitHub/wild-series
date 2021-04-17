@@ -35,12 +35,13 @@ class Season
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=program::class, inversedBy="seasons")
+     * @ORM\ManyToOne(targetEntity=Program::class, inversedBy="seasons")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $program_id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Episode::class, mappedBy="season_id")
+     * @ORM\OneToMany(targetEntity=Episode::class, mappedBy="season_id", orphanRemoval=true)
      */
     private $episodes;
 

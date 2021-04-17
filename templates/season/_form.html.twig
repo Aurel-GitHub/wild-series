@@ -1,0 +1,37 @@
+<section id="cover">
+		<div id="cover-caption">
+			<div id="container" style="padding-top: 10%; padding-left: 22%">
+				<div class="col-sm-6 col-sm offset-1">
+					<div class="card">
+						<div class="card-body" style="margin-left: 0%">
+							<h4 class="card-title" style="text-align:center">Ajouter une saison</h4>
+							{{ form_start(form) }}
+							<div  class="row align-items-end" style="padding-left: 0%">
+								<div class="col-md-6">
+									{{ form_row(form.number) }}
+								</div>
+								<div class="col-md-6">
+									{{ form_row(form.year) }}
+								</div>
+                                {# <div class="row"> #}
+                                    <div class="col-md-6" style="padding-top: 3%">
+                                        {{ form_row(form.description) }}
+                                    </div>
+                                {# </div> #}
+								<div class="col-md-6">
+									{{ form_row(form.program_id) }}
+								</div>
+								<div class="col-md-6" style="padding-top: 3%">
+									{{ form_row(form.submit) }}
+                                    {# <button class="btn">{{ button_label|default('Save') }}</button> #}
+								</div>
+							</div>
+							{{ form_end(form) }}
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
+</section>

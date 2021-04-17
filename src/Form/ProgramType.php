@@ -45,7 +45,7 @@ class ProgramType extends AbstractType
             //     'expanded' => true  // multiple choice in checkbox !!! 
             // ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Add', 
+                'label' => 'Ajouter', 
                 'attr' => [
                     'class' => 'btn-info btn-sm' 
                 ]
