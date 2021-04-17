@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Season;
+use App\Entity\Program;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -33,7 +35,10 @@ class SeasonType extends AbstractType
                     'placeholder' => 'description'
                 ]
             ])
-            ->add('program_id', null, ['choice_label' => 'title'])
+            ->add('program_id', EntityType::class, [
+                'class' => Program::class, 
+                'choice_label' => 'title'
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Ajouter', 
                 'attr' => [
