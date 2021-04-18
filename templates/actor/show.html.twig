@@ -10,7 +10,7 @@
 			<div class="card" style="padding: 1%">
                 <ul style="list-style:none;margin: 0">
 				{# {{ path('program_show', {id: program.id}) }} #}
-                    <li style="padding: 2%"><p><a href="{{ path('program_show', {id: program.id}) }}">{{ program.title }}</a></p></li>
+                    <li style="padding: 2%"><p><a href="{{ path('program_show', { program_slug: program.slug }) }}">{{ program.title }}</a></p></li>
                 </ul>
 			</div>
         <br>

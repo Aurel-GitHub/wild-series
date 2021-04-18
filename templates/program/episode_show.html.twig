@@ -6,7 +6,9 @@
 	<div class="media" style="padding: 5%">
 		<div class="media-body">
 			<h1 class="mt-0">{{ episode.title }}</h1>
-              		<small><a href="{{ path("program_season_show", { programId: program.id ,seasonId: season.id }) }}">Retour sur la saison {{ season.number }}</a></small><br>
+			     {# * @Route("/programs/{program_slug}/seasons/{season_number}/episodes/{episode_slug}", name="program_episode_show") #}
+
+			<small><a href="{{ path('program_season_show', {'program_slug': program.slug, 'season_number': season.number})}}">Retour à la saison n°{{ season.number }}</a><small> 
 			<div clas="text" style="padding-top: 2%"><strong>Synopsis : </strong><p> {{ episode.synopsis }} </p></div>
 		</div>
 	</div>

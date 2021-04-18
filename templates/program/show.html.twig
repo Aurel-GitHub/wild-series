@@ -13,7 +13,7 @@
 			<strong>Liste des saisons disponibles</strong>
 			{% for season in seasons %}
 				<p>
-					<a href="{{ path("program_season_show", { programId: season.programId.id , seasonId: season.id}) }}">Saison n°:{{ season.number}}
+					<a href="{{ path("program_season_show", { program_slug: program.slug, season_number: season.number }) }}">Saison n°:{{ season.number}}
 						-
 						{{ season.year }}
 					</a>
@@ -21,7 +21,7 @@
 			{% endfor %}
 			<strong>Liste des acteurs : </strong>
 			{% for actor in program.actors %}
-				<li>{{ actor.name }}</li>
+				<li>{{ actor.name }} - <a href="{{ path('actor_show', { id: actor.id }) }} ">Lien de l'acteur</a></li>
 				{% else %}
 					<li>Aucun acteur pour cette série</li>
 			{% endfor %}

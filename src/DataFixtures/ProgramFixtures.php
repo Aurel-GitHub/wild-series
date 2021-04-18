@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Program;
+use App\Service\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -34,6 +35,13 @@ class ProgramFixtures extends Fixture
                             'category' => 'Horreur',
                             ],
 ];
+    private $slugify;
+
+    public function __construct(Slugify $slugify)
+    {
+        $this->slugify = $slugify;    
+    }
+
     public function load(ObjectManager $manager)
     {
         $i = 0;
@@ -41,6 +49,8 @@ class ProgramFixtures extends Fixture
             $program = new Program();
             $program->setTitle($title);
             $program->setSummary($data['summary']);
+            $program->setPoster('https://loremflickr.com/320/240');
+            $program->setSlug($this->slugify->generate($program->getTitle()));
             $program->setCategory($this->getReference('category_0'));
             $this->addReference('program_' . $i, $program);
 
