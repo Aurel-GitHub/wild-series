@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class ProgramController extends AbstractController
 {
@@ -108,7 +110,7 @@ class ProgramController extends AbstractController
     /**
      * @Route("/add-program", name="new_program")
      */
-    public function new(Request $request,  Slugify $slugify): Response
+    public function new(Request $request,  Slugify $slugify, MailerInterface $mailer): Response
     {
         $program = new Program();
 
@@ -118,7 +120,13 @@ class ProgramController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
 
-            // $this->addFlash('notice', 'Your program has been saved !');
+            $email = (new Email())
+            ->from('doe@yopmail.com')
+            ->to('doe@yopmail.com')
+            ->subject('Une nouvelle série vient d\'être publiée !')
+            ->html($this->renderView('email/program.html.twig', ['program' => $program]));
+
+            $mailer->send($email);
 
             $program->setSlug($slugify->generate($program->getTitle()));
             $em = $this->getDoctrine()->getManager();
@@ -129,7 +137,7 @@ class ProgramController extends AbstractController
         }
 
         return $this->render('program/new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 

@@ -49,7 +49,7 @@ class ProgramFixtures extends Fixture
             $program = new Program();
             $program->setTitle($title);
             $program->setSummary($data['summary']);
-            $program->setPoster('https://loremflickr.com/320/240');
+            $program->setPoster('https://picsum.photos/id/237/200/300');
             $program->setSlug($this->slugify->generate($program->getTitle()));
             $program->setCategory($this->getReference('category_0'));
             $this->addReference('program_' . $i, $program);
