@@ -6,7 +6,10 @@
 {% block body %}
 	<div class="container" style="padding: 3%">
 		<h1 style="padding-bottom:3%">Toutes les catégories :</h1>
-		<div class="link-home"><a href="{{ path('app_index') }}">Retour à l'accueil</a><a href="{{ path('new_category') }}" style="padding-left: 2%">Ajouter une catégorie</a></div>
+		<div class="link-home"><a href="{{ path('app_index') }}">Retour à l'accueil</a>
+		{% if is_granted('ROLE_ADMIN') %}
+			<a href="{{ path('new_category') }}" style="padding-left: 2%">Ajouter une catégorie</a></div>
+		{% endif %}
 		<div class="espace" style="padding-top: 1%"></div>
 		{% for categorie in categories %}
 			<div>
