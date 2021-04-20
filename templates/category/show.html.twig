@@ -16,7 +16,7 @@
 					{{ category.id }}</h2>
 				<p style="padding: 2%">{{ category.summary }}</p>
 				<div class="link" style="padding: 2%">
-					<a href="{{ path("program_show", { id: category.id }) }}">Voir la fiche</a>
+					<a href="{{ path("program_show", { program_slug: category.slug }) }}">Voir la fiche</a>
 				</div>
 			</div><br>
 		{% else %}
