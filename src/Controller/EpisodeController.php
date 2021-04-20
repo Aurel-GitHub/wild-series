@@ -21,8 +21,10 @@ class EpisodeController extends AbstractController
      */
     public function index(EpisodeRepository $episodeRepository): Response
     {
+        $test = $this->getDoctrine()->getRepository(Episode::class)->findAll();
+
         return $this->render('episode/index.html.twig', [
-            'episodes' => $episodeRepository->findAll(),
+            'episodes' => $test,
         ]);
     }
 
@@ -57,6 +59,7 @@ class EpisodeController extends AbstractController
      */
     public function show(Episode $episode): Response
     {
+        
         return $this->render('episode/show.html.twig', [
             'episode' => $episode,
         ]);
