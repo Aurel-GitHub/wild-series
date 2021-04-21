@@ -36,15 +36,17 @@ class ProgramRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Program
+    public function findByRecentDate()
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+        ->orderBy('p.created_at', 'DESC')
+        ->getQuery()
+        ->setMaxResults(3)
+        ->getResult()
         ;
     }
-    */
+
+    
+
+
 }
