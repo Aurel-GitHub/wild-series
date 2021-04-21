@@ -174,6 +174,11 @@ class ProgramController extends AbstractController
      */
     public function delete(Request $request, Program $program): Response
     {
+        if (!($this->getUser() == $program->getOwner())) {
+            throw new AccessDeniedException('Only the owner can delete the program!');
+            
+        }
+
         if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($program);
