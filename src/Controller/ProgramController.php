@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ProgramController extends AbstractController
 {
@@ -112,33 +113,74 @@ class ProgramController extends AbstractController
      */
     public function new(Request $request,  Slugify $slugify, MailerInterface $mailer): Response
     {
-        $program = new Program();
+            $program = new Program();
 
-        $form = $this->createForm(ProgramType::class, $program);
-
-        $form->handleRequest($request); 
-
-        if($form->isSubmitted() && $form->isValid()){
-
-            $email = (new Email())
-            ->from('doe@yopmail.com')
-            ->to('doe@yopmail.com')
-            ->subject('Une nouvelle série vient d\'être publiée !')
-            ->html($this->renderView('email/program.html.twig', ['program' => $program]));
-
-            $mailer->send($email);
-
-            $program->setSlug($slugify->generate($program->getTitle()));
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($program);
-            $em->flush();
-
-            return $this->redirectToRoute('program');
-        }
+            $form = $this->createForm(ProgramType::class, $program);
+    
+            $form->handleRequest($request); 
+    
+            if($form->isSubmitted() && $form->isValid()){
+    
+                $program->setSlug($slugify->generate($program->getTitle()));
+                $program->setOwner($this->getUser());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($program);
+                $em->flush();
+                
+    
+                $email = (new Email())
+                ->from('doe@yopmail.com')
+                ->to('doe@yopmail.com')
+                ->subject('Une nouvelle série vient d\'être publiée !')
+                ->html($this->renderView('email/program.html.twig', ['program' => $program]));
+    
+                $mailer->send($email);
+    
+                return $this->redirectToRoute('program');
+            }
 
         return $this->render('program/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
+    /**
+     * @Route("/programs/{slug}/edit", name="program_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Program $program)
+    {
+            $form = $this->createForm(ProgramType::class, $program);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+    
+                return $this->redirectToRoute('program');
+            }
+
+            if (!($this->getUser() == $program->getOwner())) {
+                throw new AccessDeniedException('Only the owner can edit the program!');
+            }
+
+        return $this->render('program/edit.html.twig', [
+            'program' => $program,
+            'form' => $form->createView(),
+
+        ]);
+    }
+
+    /**
+     * @Route("/program/{id}", name="program_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Program $program): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($program);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('program');
+    }
 }
+

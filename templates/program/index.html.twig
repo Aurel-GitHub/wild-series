@@ -6,15 +6,23 @@
 <div class="container" style="padding: 3%">
  <h1 style="padding-bottom:3% " >Toutes les séries de la table program : </h1>
     <a href="{{ path('app_index') }}">Retour à l'accueil</a>
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONTRIBUTOR') %}
         <a href="{{ path('new_program') }}" style="padding-left: 2%">Ajouter une série</a>
+        
     {% endif %}
     <div class="espace" style="padding-top: 1%"></div>
     {% for program in programs %}
         <div class="card" style="padding: 1%">
             <h2 style="padding: 2%">{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</h2>
             <p style="padding: 2%">{{ program.summary }}</p>
-            <div class="link" style="padding: 2%"><a href="{{ path("program_show", { program_slug: program.slug }) }}">Voir la fiche</a></div>
+            <div class="link" style="padding: 2%"><a href="{{ path("program_show", { program_slug: program.slug }) }}">Voir la fiche</a>
+            
+            </div>
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONTRIBUTOR') %}
+                <a href="{{ path('program_edit', {'slug': program.slug}) }}" style="padding-left: 2%">Modifier</a>
+                {{ include('program/_delete_form.html.twig') }}
+            {% endif %}
+            </ul>
         </div><br>
     {% else %}
         Aucune série trouvée.

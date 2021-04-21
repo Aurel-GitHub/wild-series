@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un épisode{% endblock %}
+
+{% block body %}
+    <h1>Modifier un épisode</h1>
+
+    {{ include('program/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('program') }}">revenir au menu </a>
+
+{% endblock %}
