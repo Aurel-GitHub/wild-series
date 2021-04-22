@@ -1,31 +1,56 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Wild Series - Série n°{{program.id}}{% endblock %}
+{% block title %}Wild Series - Série n°{{program.id}}
+{% endblock %}
 
 {% block body %}
 	<div class="media">
-		<img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
+		<img class="align-self-start mr-3" style="padding-left: 3%; padding-top: 3%" src="{{program.poster}}" alt="{{ program.title }} poster">
 		<div class="media-body" style="padding: 5%">
-			<h1 class="mt-0">{{ program.title }} </h1>
+			<h1 class="mt-0">{{ program.title }}</h1>
+			<small>
+				<a href="{{ path('program') }}">Retour à la liste des programmes</a>
+			</small><br><br>
 			<p>{{ program.summary }}</p>
 			<p>Catégorie :
 				{{ program.category.name }}</p>
-			<strong>Liste des saisons disponibles</strong>
-			{% for season in seasons %}
-				<p>
-					<a href="{{ path("program_season_show", { program_slug: program.slug, season_number: season.number }) }}">Saison n°:{{ season.number}}
-						-
-						{{ season.year }}
-					</a>
-				</p>
-			{% endfor %}
-			<strong>Liste des acteurs : </strong>
-			{% for actor in program.actors %}
-				<li>{{ actor.name }} - <a href="{{ path('actor_show', { id: actor.id }) }} ">Lien de l'acteur</a></li>
-				{% else %}
-					<li>Aucun acteur pour cette série</li>
-			{% endfor %}
-			<small><a href="{{ path('program') }}">Retour à la liste des programmes</a></small><br>
-		</div>
-	</div>
-{% endblock %}
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col">Liste des saisons</th>
+						<th scope="col"></th>
+						<th scope="col">Liste des acteurs</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row"></th>
+						<td>
+							{% for season in seasons %}
+								<a href="{{ path("program_season_show", { program_slug: program.slug, season_number: season.number }) }}">Saison n°:{{ season.number}}
+									-
+									{{ season.year }}<br>
+								</a>
+							{% endfor %}
+						</td>
+						<td></td>
+						<td>
+							{% for actor in program.actors %}
+								<a href="{{ path('actor_show', { id: actor.id }) }} ">{{ actor.name }}</a><br>
+							{% else %}
+								Aucun acteur pour cette série
+							{% endfor %}
+						</td>
+					</tr>
+				</tbody>
+			</td>
+		</tr>
+	</tbody>
+</tr>
+<tr>
+	<th scope="row"></th>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr></td></tr><tr><th scope="row"></th><td></td><td></td></tr></tbody></table>{% endblock %}
