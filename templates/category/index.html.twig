@@ -6,23 +6,29 @@
 {% block body %}
 	<div class="container" style="padding: 3%">
 		<h1 style="padding-bottom:3%">Toutes les catégories :</h1>
-		<div class="link-home"><a href="{{ path('app_index') }}">Retour à l'accueil</a>
-		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONTRIBUTOR') %}
-			<a href="{{ path('new_category') }}" style="padding-left: 2%">Ajouter une catégorie</a></div>
+		<div class="link-home">
+			<a href="{{ path('app_index') }}">Retour à l'accueil</a>
+			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONTRIBUTOR') %}
+				<a href="{{ path('new_category') }}" style="padding-left: 2%">Ajouter une catégorie</a>
+			</div>
 		{% endif %}
-		<div class="espace" style="padding-top: 1%"></div>
+		<div class="espace" style="padding-top: 1%;"></div>
 		{% for categorie in categories %}
-			<div>
-				<div class="col-md-3 ">
-					<div class="card" style="text-align:center;padding-top: 1%;padding-bottom: 1%; margin: 1%; border:none">
-						<h2>
-							<a style="padding-top: 1%" href="{{ path("category_show", { name: categorie.name }) }}">{{ categorie.name }}</a>
-						</h2>
-					</div>
-                    <br>
+			<div class="col">
+				<div class="card" style="text-align:center;padding-top: 1%;padding-bottom: 1%; margin: 1%; border:none">
+					<h2>
+						<a style="padding-top: 1%" href="{{ path("category_show", { name: categorie.name }) }}">{{ categorie.name }}</a>
+					</h2>
+					<small>
+						{% if is_granted('ROLE_ADMIN')  %}
+							{{ include('category/_delete_form.html.twig') }}
+						{% endif %}
+					</small>
 				</div>
+				<br>
 			</div>
 		{% else %}
 			Aucune série trouvée.
 		{% endfor %}
+	</div>
 {% endblock %}

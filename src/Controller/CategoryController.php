@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 
 class CategoryController extends AbstractController
 {
@@ -77,5 +79,20 @@ class CategoryController extends AbstractController
         return $this->render('category/new.html.twig', [
             "form" => $form->createView()
         ]);
+    }
+
+        /**
+     * @Route("/category/{id}", name="category_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Category $category): Response
+    {
+
+        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($category);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('categories');
     }
 }
