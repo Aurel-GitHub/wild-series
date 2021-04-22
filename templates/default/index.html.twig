@@ -4,29 +4,68 @@
 {% endblock %}
 
 {% block body %}
-	<div class="album py-5 bg-light">
-		<h1 style="padding:3%">Nos dernières séries</h1>
-		<div class="container">
-			<div class="row">
+	<div class="row" style="padding-left: 5%; padding-top: 3%">
+		<aside class="col-md-3 sidebar sidebar-left">
+			<div class="row widget">
+				<h3 style="padding-bottom: 2%">Top séries</h3>
+				{% for program in programs %}
+					<div class="col-xs-12">
+						<h4>{{ program.title }}</h4>
+						<div class="img-left" style="height: 3%; width: 3%"><img src="{{ program.poster }}" alt=""></div>
+						<div class="btn-group-toggle" data-toggle="buttons">
+							<label class="btn btn-secondary active">
+								<input type="checkbox" checked autocomplete="off">
+								<a href="{{ path("program_show", { program_slug: program.slug }) }}">Regarder</a>
+							</label>
+						</div>
+					</div>
+					<br>
+				{% endfor %}
+			</div>
+		</aside>
+
+		<!-- Article main content -->
+		<div class="col-md-9 maincontent">
+			<h3 class="page-title">Derniers épisodes</h3>
+			<div class="row program-container">
 				{% for program in programs %}
 					<div class="col-md-4">
-						<div class="card mb-4 box-shadow">
-							<img class="card-img-top" src="{{ program.poster }}" alt="card-image-program">
-							<div class="card-body">
-								<h5>{{ program.title }}</h5>
-								<p class="card-text">{{ program.summary }}</p>
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{ path("program_show", { program_slug: program.slug }) }}">Détail</a></button>
+						<div class="text-align">
+							<a href="{{ path('program_show', {program_slug : program.slug}) }}"><img src="{{ program.poster }}" alt="{{ program.title}}" class="img-fluid" style="padding: 10px; margin-top: none"></img>
+						</a>
+						<h4>{{ program.title }}</h4>
+					</div>
+				</div>
+			{% endfor %}
+			<!-- /Article -->
+		</div>
+
+		<div class="album py-5 bg-light">
+			<h1 style="padding:3%">Nos dernières séries</h1>
+			<div class="container">
+				<div class="row">
+					{% for program in programs %}
+						<div class="col-md-4">
+							<div class="card mb-4 box-shadow">
+								<img class="card-img-top" src="{{ program.poster }}" alt="card-image-program">
+								<div class="card-body">
+									<h5>{{ program.title }}</h5>
+									<p class="card-text">{{ program.summary }}</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-outline-secondary">
+												<a href="{{ path("program_show", { program_slug: program.slug }) }}">Détail</a>
+											</button>
+										</div>
+										<small class="text-muted">Publié le :
+											{{ program.createdAt|date("m/d/Y") }}</small>
 									</div>
-									<small class="text-muted">Publié le : {{ program.createdAt|date("m/d/Y") }}</small>
 								</div>
 							</div>
 						</div>
-					</div>
-				{% endfor %}
+					{% endfor %}
+				</div>
 			</div>
 		</div>
 	</div>
-
 {% endblock %}

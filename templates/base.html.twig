@@ -3,19 +3,20 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Wild Series{% endblock %}
+			{% block title %}Wild Series
+			{% endblock %}
 		</title>
-		<link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
-        {% block stylesheets %}
-		{% endblock %}
-
-		{% block javascripts %}
-		{% endblock %}
-	</head>
-	<body>
-	<header>
-	{% include "navbar.html.twig" %}
-	</header>
-		{% block body %}{% endblock %}
-	</body>
-</html>
+		<link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css"> 
+		{% block stylesheets %}{% endblock %}
+		{% block javascripts %}{% endblock %}
+		</head>
+		<body>
+			<header>
+				{% include "navbar.html.twig" %}
+			</header>
+				{% block body %}{% endblock %}
+			<footer>
+				{%  include "footer.html.twig" %}
+			</footer>
+		</body>
+	</html>
