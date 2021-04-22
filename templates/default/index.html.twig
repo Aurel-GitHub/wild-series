@@ -4,68 +4,39 @@
 {% endblock %}
 
 {% block body %}
-	<div class="row" style="padding-left: 5%; padding-top: 3%">
-		<aside class="col-md-3 sidebar sidebar-left">
-			<div class="row widget">
-				<h3 style="padding-bottom: 2%">Top séries</h3>
-				{% for program in programs %}
-					<div class="col-xs-12">
-						<h4>{{ program.title }}</h4>
-						<div class="img-left" style="height: 3%; width: 3%"><img src="{{ program.poster }}" alt=""></div>
-						<div class="btn-group-toggle" data-toggle="buttons">
-							<label class="btn btn-secondary active">
-								<input type="checkbox" checked autocomplete="off">
-								<a href="{{ path("program_show", { program_slug: program.slug }) }}">Regarder</a>
-							</label>
-						</div>
-					</div>
-					<br>
-				{% endfor %}
+	<main role="main">
+		<section class="jumbotron text-center">
+			<div class="container">
+				<h1 class="jumbotron-heading">Bienvenue sur Wild Series</h1>
+				<p class="lead text-muted">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+																	   ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip 
+																	   ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+																	   Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
 			</div>
-		</aside>
-
-		<!-- Article main content -->
-		<div class="col-md-9 maincontent">
-			<h3 class="page-title">Derniers épisodes</h3>
-			<div class="row program-container">
-				{% for program in programs %}
-					<div class="col-md-4">
-						<div class="text-align">
-							<a href="{{ path('program_show', {program_slug : program.slug}) }}"><img src="{{ program.poster }}" alt="{{ program.title}}" class="img-fluid" style="padding: 10px; margin-top: none"></img>
-						</a>
-						<h4>{{ program.title }}</h4>
-					</div>
-				</div>
-			{% endfor %}
-			<!-- /Article -->
-		</div>
-
-		<div class="album py-5 bg-light">
-			<h1 style="padding:3%">Nos dernières séries</h1>
+		</section>
+		<!--  3 dernières séries -->
+		<div class="album py-5 bg-light" style="border-style: none">
+			<h3 style="padding-bottom: 2%; text-align:center">Séries récentes</h3>
 			<div class="container">
 				<div class="row">
 					{% for program in programs %}
 						<div class="col-md-4">
 							<div class="card mb-4 box-shadow">
-								<img class="card-img-top" src="{{ program.poster }}" alt="card-image-program">
+								<img class="card-img-top" src="{{ program.poster }}" alt="card image program">
 								<div class="card-body">
-									<h5>{{ program.title }}</h5>
+									<h4>{{ program.title }}</h4>
 									<p class="card-text">{{ program.summary }}</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
 											<button type="button" class="btn btn-sm btn-outline-secondary">
-												<a href="{{ path("program_show", { program_slug: program.slug }) }}">Détail</a>
+												<a href="{{ path("program_show", { program_slug: program.slug }) }}">Regarder</a>
 											</button>
 										</div>
-										<small class="text-muted">Publié le :
-											{{ program.createdAt|date("m/d/Y") }}</small>
+										<small class="text-muted">{{ program.createdAt|date("m/d/Y")  }}</small>
 									</div>
 								</div>
 							</div>
 						</div>
 					{% endfor %}
-				</div>
-			</div>
-		</div>
-	</div>
-{% endblock %}
+				</main>
+			{% endblock %}
