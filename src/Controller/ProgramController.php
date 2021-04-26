@@ -9,6 +9,7 @@ use App\Form\ProgramType;
 use App\Form\SearchProgramFormType;
 use App\Repository\ProgramRepository;
 use App\Service\Slugify;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -168,9 +169,7 @@ class ProgramController extends AbstractController
     
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
-
                 $this->addFlash('succes', 'The new program has been updated');
-    
                 return $this->redirectToRoute('program');
             }
 
@@ -192,19 +191,38 @@ class ProgramController extends AbstractController
     {
         if (!($this->getUser() == $program->getOwner())) {
             throw new AccessDeniedException('Only the owner can delete the program!');
-            
         }
 
         if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($program);
             $entityManager->flush();
-
             $this->addFlash('danger', 'The program has been deleted');
-
         }
 
         return $this->redirectToRoute('program');
     }
+
+
+    /**
+     * @Route("/program/{id}/watchlist", name="watchlist_program", methods={"GET", "POST"})
+     */
+    public function addToWatchlist(Request $request, Program $program, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->getUser()->getPrograms()->contains($program)) {
+            $this->getUser()->removeProgram($program);
+        }
+        else {
+            $this->getUser()->addProgram($program);
+        }
+        $entityManager->flush();
+
+        return $this->json([
+
+            'isInWatchlist' => $this->getUser()->isInWatchlist($program)
+
+        ]);
+    }
+
 }
 
