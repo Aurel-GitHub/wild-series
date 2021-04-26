@@ -26,7 +26,7 @@ class ProgramController extends AbstractController
      */
     public function index(Request $request, ProgramRepository $programRepository): Response
     {
-        $programs = $this->getDoctrine()->getRepository(Program::class)->findAll();
+        // $programs = $this->getDoctrine()->getRepository(Program::class)->findAll();
 
         $form = $this->createForm(SearchProgramFormType::class);
         $form->handleRequest($request);
