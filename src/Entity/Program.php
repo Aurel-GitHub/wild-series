@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=ProgramRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ProgramRepository")
  * @UniqueEntity(fields = {"title"}, message = "Le titre saisie éxiste déjà, veuillez en saisir un nouveau")
  * 
  */
