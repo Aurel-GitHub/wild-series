@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ProgramRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;

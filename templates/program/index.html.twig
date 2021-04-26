@@ -5,10 +5,13 @@
 {% block body %}
 <div class="container" style="padding: 3%">
  <h1 style="padding-bottom:3% " >Toutes les séries de la table program : </h1>
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button>Search</button>
+{{ form_end(form) }}
     <a href="{{ path('app_index') }}">Retour à l'accueil</a>
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONTRIBUTOR') %}
         <a href="{{ path('new_program') }}" style="padding-left: 2%">Ajouter une série</a>
-        
     {% endif %}
     <div class="espace" style="padding-top: 1%"></div>
     {% for program in programs %}
