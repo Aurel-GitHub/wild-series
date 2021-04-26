@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ProgramController extends AbstractController
 {
@@ -26,7 +27,7 @@ class ProgramController extends AbstractController
      */
     public function index(Request $request, ProgramRepository $programRepository): Response
     {
-        $programs = $this->getDoctrine()->getRepository(Program::class)->findAll();
+        // $programs = $this->getDoctrine()->getRepository(Program::class)->findAll();
 
         $form = $this->createForm(SearchProgramFormType::class);
         $form->handleRequest($request);
@@ -140,7 +141,8 @@ class ProgramController extends AbstractController
                 $em->persist($program);
                 $em->flush();
                 
-    
+                $this->addFlash('succes', 'The new program has been created');
+
                 $email = (new Email())
                 ->from('doe@yopmail.com')
                 ->to('doe@yopmail.com')
@@ -167,6 +169,8 @@ class ProgramController extends AbstractController
     
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
+
+                $this->addFlash('succes', 'The new program has been updated');
     
                 return $this->redirectToRoute('program');
             }
@@ -196,6 +200,9 @@ class ProgramController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($program);
             $entityManager->flush();
+
+            $this->addFlash('danger', 'The program has been deleted');
+
         }
 
         return $this->redirectToRoute('program');
